@@ -1,11 +1,12 @@
 
-import home from './sign-up.js' ;
+import signUp from './sign-up.js' ;
 import login from './login.js';
 
-const components = {
-home: home ,
-login: login
+//objeto con las vistas 
 
+
+export const components = {
+    signUp: signUp ,
+    login: login
+    
 }
-
-export { components };

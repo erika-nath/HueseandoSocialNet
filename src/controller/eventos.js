@@ -1,11 +1,6 @@
     const getEmail = document.getElementById('signupemail');//signUP
       const getPassword = document.getElementById('signuppassword');//signUP
       const btnSignUp = document.getElementById('buttonSignup');//signUP
-      const email = document.getElementById('email');//login
-      const password = document.getElementById('password');//login
-      const btnLogin = document.getElementById('buttonLogin');//login
-
-      
       
       btnLogin.addEventListener('submit', e =>{
         const loginEmail = email.value;
@@ -34,9 +29,9 @@
 
 
 
-
-userSignUp:{
-    const email = getEmail.value;
+//Objeto que se va a utilizar para firebase
+const userSignUp = {
+    const email = getEmail.value,
     const password = getPassword.value
 
-}
+};

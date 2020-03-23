@@ -1,5 +1,7 @@
 
 import { components } from '../views/components.js'
+import { view1 } from '../views/components.js'
+
 
 //objeto controller (router de vistas)
 //changeView se convierte en una propiedad
@@ -13,7 +15,8 @@ case '':
 container.appendChild(components.login());
 break;
 case '#/sign-up':
-container.appendChild(components.signUp()) 
+container.appendChild(components.signUp())
+view1.init.signup(); 
 break ;
 
 case '#/login' :

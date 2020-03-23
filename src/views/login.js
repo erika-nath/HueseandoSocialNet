@@ -5,7 +5,7 @@ export default () => {
     <h2> Login </h2>
     <label for="nombre">ingrese su nombre:</label>
     <input id="email" type="text" placeholder ="Escribe tu correo">
-    <input id="password" type="text" placeholder ="Escribe tu contraseña">
+    <input type="password"  id="password" type="text" placeholder ="Escribe tu contraseña">
     <input id="buttonLogin" class="buttonLogin" type="submit" value="intro">
     <br>    <br>
 

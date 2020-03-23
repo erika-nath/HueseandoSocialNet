@@ -1,4 +1,48 @@
-.form img{
+html {
+margin: 0;
+padding: 0;
+ font-family:sans-serif ;
+ background:url('./img/fondo.jpg') no-repeat center center;
+ min-height:100%;
+ background-size:cover;
 
-    width: 15%;
+}
+
+#formlogin img{
+
+    width:100%;
+    max-width:400px;    }
+
+    #formlogin{
+      
+        background: rgba(0,0,0,0.8);
+        border-radius: 25px;
+       
+        flex-direction: column;
+        display: flex;
+  align-items: center;
+  justify-content: center;
+ width: 300px;
+ margin:5% auto ;
+ padding: 30px;
+        
     }
+
+        
+    #formSignUp{
+      
+        /*background: rgba(0,0,0,0.8);
+        border-radius: 25px;*/
+       
+        flex-direction: column;
+        display: flex;
+  align-items: center;
+  justify-content: center;
+ width: 250px;
+ margin:5% auto ;
+ padding: 30px;
+        
+    }
+
+        
+    

@@ -15,11 +15,18 @@ const userModel = {
       const promiseAuth = firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password);
       return promiseAuth;
     },
+    
 
-}    //fin de modelo  no borrar
+ loginUser:(loginData)=>{
+    const promiseLogin = firebase.auth().signInWithEmailAndPassword(loginData.email, loginDatapassword);
+    return promiseLogin;
+    
+  },
+
+}   //fin de modelo  no borrar
 
 export default {
-  userModel: userModel
+  userModel: userModel,
 }
           
         

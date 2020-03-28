@@ -1,6 +1,6 @@
 import signUp from './sign-up.js';
 import login from './login.js';
-import post from'./post.js';
+import post from './post.js';
 import model from '../modelo/model.js';
 
 //vistas
@@ -42,7 +42,7 @@ export const view1 = {
       }); //funcion de evento
     }, //fin sigup
 
-login: () => {
+    login: () => {
 
       const btnLogin = document.getElementById('buttonLogin');
       console.log(btnLogin);
@@ -51,25 +51,25 @@ login: () => {
         console.log("funciona boton");
 
         let loginData = {
-          email: document.getElementById('email').value,
-          password: document.getElementById('password').value
+          emailLogin: document.getElementById('email').value,
+          passwordLogin: document.getElementById('password').value
         }
-        model.userLogin.loginUser(loginData)
-        .then((data) => {
-          console.log(data);
-          window.location.hash = '/post';
-        })
-        .catch((err) => {
-          console.log(err);
-          alert('There was an error')
-        });
+        model.userModel.loginUser(loginData)
+          .then((data) => {
+            console.log(data);
+            window.location.hash = '#/post';
+          })
+          .catch((err) => {
+            console.log(err);
+            alert('There was an error')
+          });
 
 
       });//funcion de boton login
     }, //fin object login
 
     post: () => {
-console.log("HOLAs");
+      console.log("HOLAs");
 
     }
   } //no borra init

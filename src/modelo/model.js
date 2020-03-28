@@ -18,7 +18,7 @@ const userModel = {
     
 
  loginUser:(loginData)=>{
-    const promiseLogin = firebase.auth().signInWithEmailAndPassword(loginData.email, loginDatapassword);
+    const promiseLogin = firebase.auth().signInWithEmailAndPassword(loginData.emailLogin, loginData.passwordLogin);
     return promiseLogin;
     
   },
@@ -27,6 +27,7 @@ const userModel = {
 
 export default {
   userModel: userModel,
+
 }
           
         

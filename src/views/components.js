@@ -11,7 +11,7 @@ export const components = {
 };
 
 //objeto funcionalidad
-export const view1 = {
+export const userInterface = {
   init: {
     signup: () => {
       const btnSignUp = document.getElementById('buttonSignup'); //signUP
@@ -69,8 +69,34 @@ export const view1 = {
     }, //fin object login
 
     post: () => {
-      console.log("HOLAs");
+       const btnSend = document.getElementById('buttonSend');
+      btnSend.addEventListener('click', (e) => {
+        e.preventDefault();
+//objeto con contenido post
+        let contentPost = {
+           description : document.getElementById('description').value,
+           task :document.getElementById('task').value
+        }
+        //renombrando para firestone
 
-    }
+        let getPost={
+          first: description,
+          last: task
+        }
+      
+
+      model.userModel.getPost(contentPost)
+
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+
+        
+      });//fin de send
+
+    }//fin de post
   } //no borra init
 }; //no borrar object view1

@@ -10,6 +10,7 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+
 const userModel = {
     createEmailAndPassword: (userData) => {
       const promiseAuth = firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password);
@@ -23,7 +24,14 @@ const userModel = {
     
   },
 
+  getPost: (contentPost) => {
+    const promisePost = firebase.firestore().collection("posts").add(contentPost);
+    return promisePost;
+ }
+
 }   //fin de modelo  no borrar
+
+
 
 export default {
   userModel: userModel,

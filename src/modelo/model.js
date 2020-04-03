@@ -10,8 +10,27 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+/*
+
+export const obsevador=firebase.auth().onAuthStateChanged(function(loginData) {
+  if (loginData) {
+    console.log("registrado");
+
+    var email = loginData.email;
+    console.log(email);
+    
+    // ...
+  } else {
+   alert("no esta registrado");
+   
+  }
+}); */
+
+
+
 
 const userModel = {
+
     createEmailAndPassword: (userData) => {
       const promiseAuth = firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password);
       return promiseAuth;
@@ -24,10 +43,13 @@ const userModel = {
     
   },
 
+
   getPost: (contentPost) => {
     const promisePost = firebase.firestore().collection("posts").add(contentPost);
     return promisePost;
- }
+ },
+
+
 
 }   //fin de modelo  no borrar
 
@@ -38,16 +60,4 @@ export default {
 
 }
           
-        
-
       
-  
-      
-
-
-
-
-//signupName
-//signupemail
-//signuppassword
-//submitSignup boton que envia*/

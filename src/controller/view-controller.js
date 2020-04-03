@@ -1,17 +1,21 @@
 import { components, userInterface } from '../views/components.js'
+
 //objeto controlador de vistas
 export const viewController = {
   changeView: (router) => {
-    //router == ''
     const container = document.getElementById('container');
     container.innerHTML = '';
+
 
     switch (router) {
       case '':
         container.appendChild(components.login());
         userInterface.init.login();
+        //import observador from '../modelo.js'
 
-        break;
+
+
+break;
       case '#/sign-up':
         container.appendChild(components.signUp())
         userInterface.init.signup();
@@ -24,8 +28,18 @@ export const viewController = {
         break;
 
       case '#/post':
-        container.appendChild(components.post())
-        userInterface.init.post();
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            container.appendChild(components.post(user))
+            userInterface.init.post();
+            console.log(user.email);
+            
+          } else {
+            console.log("no esta registrado");
+            window.location.hash = '';
+          }
+        }); 
+
         break;
 
       default:
@@ -42,14 +56,6 @@ export const viewController = {
 
   },
 
-
-  authEmailAndPassword: (obj) => {
-    modelo.authEmailAndPassword(obj);
-  },
-
-  loginEmailAndPassword: (obj) => {
-    modelo.loginEmailAndPassword(obj);
-  },
 
 
 };//fin de obj view controller

@@ -3,14 +3,13 @@ import login from './login.js';
 import post from './post.js';
 import model from '../modelo/model.js';
 
+
 //vistas
 export const components = {
   signUp: signUp,
   login: login,
   post: post,
 };
-
-//objeto funcionalidad
 export const userInterface = {
   init: {
     signup: () => {
@@ -45,56 +44,49 @@ export const userInterface = {
     login: () => {
 
       const btnLogin = document.getElementById('buttonLogin');
-      console.log(btnLogin);
       btnLogin.addEventListener('click', (e) => {
         e.preventDefault();
-        console.log("funciona boton");
-
         let loginData = {
           emailLogin: document.getElementById('email').value,
           passwordLogin: document.getElementById('password').value
         }
+
+////no borrar
         model.userModel.loginUser(loginData)
           .then((data) => {
-            console.log(data);
             window.location.hash = '#/post';
           })
           .catch((err) => {
-            console.log(err);
             alert('There was an error')
           });
 
+      });
+  
+    }, //fin metodo login NO BORRAR
 
-      });//funcion de boton login
-    }, //fin object login
 
     post: () => {
-       const btnSend = document.getElementById('buttonSend');
+      const btnSend = document.getElementById('buttonSend');
       btnSend.addEventListener('click', (e) => {
         e.preventDefault();
-//objeto con contenido post
+        //objeto con contenido post
         let contentPost = {
-           description : document.getElementById('description').value,
-           task :document.getElementById('task').value
+          description: document.getElementById('description').value,
+          task: document.getElementById('task').value
         }
-        //renombrando para firestone
 
-        let getPost={
-          first: description,
-          last: task
-        }
+        model.userModel.getPost(contentPost)
+
+          .then(function (docRef) {
+           // console.log("Document written with ID: ", docRef.id);
+            document.getElementById('description').value = '';
+            document.getElementById('task').value = '';
       
+          })
+          .catch(function (error) {
+            console.error("Error adding document: ", error);
+          });
 
-      model.userModel.getPost(contentPost)
-
-      .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-      });
-
-        
       });//fin de send
 
     }//fin de post

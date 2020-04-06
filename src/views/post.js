@@ -8,9 +8,15 @@ export default(user) =>{
 
  <textarea placeholder="insert description" id="task" ></textarea>
  <input id="buttonSend" class="buttonSend" type="button" value="enviar">
- <div id="published"></div>
-
-
+ <table id="tabla" class="table">
+ <thead>
+ <tr>
+ <th scope='col'>ID</th>
+ <th scope='col'>name</th>
+ <th scope='col'>task</th>
+ </tr>
+ </thead>
+ </table>
  
  `;
 

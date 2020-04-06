@@ -10,23 +10,8 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-/*
 
-export const obsevador=firebase.auth().onAuthStateChanged(function(loginData) {
-  if (loginData) {
-    console.log("registrado");
-
-    var email = loginData.email;
-    console.log(email);
-    
-    // ...
-  } else {
-   alert("no esta registrado");
-   
-  }
-}); */
-
-
+//contentPost
 
 
 const userModel = {
@@ -49,7 +34,10 @@ const userModel = {
     return promisePost;
  },
 
-
+ readPost:(contentPost)=>{
+   const db=firebase.firestore()
+   return promiseRead;
+ }
 
 }   //fin de modelo  no borrar
 

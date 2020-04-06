@@ -78,7 +78,8 @@ export const userInterface = {
         model.userModel.getPost(contentPost)
 
           .then(function (docRef) {
-           // console.log("Document written with ID: ", docRef.id);
+           console.log("Document written with ID: ", docRef.id);
+           
             document.getElementById('description').value = '';
             document.getElementById('task').value = '';
       
@@ -89,6 +90,25 @@ export const userInterface = {
 
       });//fin de send
 
-    }//fin de post
+    },//fin de post
+
+    readPost:()=>{
+//const tabla = document.getElementById("tabla");
+firebase.firestore().collection("posts").onSnapshot((querySnapshot)=>{
+  const tabla = document.getElementById("tabla");
+  tabla.innerHTML='';
+  querySnapshot.forEach((doc)=>{
+    console.log(`${doc.id}=>${doc.data().first}`);
+    tabla.innerHTML += `
+    <tr>
+ <th scope='col'>${doc.id}</th>
+ <th scope='col'>${doc.data().task}</th>
+ </tr>
+    
+    `})
+  })
+}
+
+//readpost
   } //no borra init
 }; //no borrar object view1

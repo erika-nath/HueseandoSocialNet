@@ -38,7 +38,10 @@ break;
             console.log("no esta registrado");
             window.location.hash = '';
           }
-        }); 
+        });
+        userInterface.init.readPost();
+
+         
 
         break;
 

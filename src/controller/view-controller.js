@@ -11,10 +11,6 @@ export const viewController = {
       case '':
         container.appendChild(components.login());
         userInterface.init.login();
-        //import observador from '../modelo.js'
-
-
-
 break;
       case '#/sign-up':
         container.appendChild(components.signUp())
@@ -32,7 +28,9 @@ break;
           if (user) {
             container.appendChild(components.post(user))
             userInterface.init.post();
-            console.log(user.email);
+
+           // console.log(user.email);
+            console.log(user.email)
             
           } else {
             console.log("no esta registrado");

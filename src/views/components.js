@@ -72,15 +72,19 @@ export const userInterface = {
         //objeto con contenido post
         let contentPost = {
           description: document.getElementById('description').value,
-          task: document.getElementById('task').value
+          task: document.getElementById('task').value,
+          
         }
+        
 
         model.userModel.getPost(contentPost)
 
           .then(function (docRef) {
            console.log("Document written with ID: ", docRef.id);
-           
-            document.getElementById('description').value = '';
+           console.log("Document written with ID: ",currentUser.uid);
+          // console.log("Document written with ID: ",docRef.uid);
+
+           document.getElementById('description').value = '';
             document.getElementById('task').value = '';
       
           })
@@ -93,22 +97,22 @@ export const userInterface = {
     },//fin de post
 
     readPost:()=>{
-//const tabla = document.getElementById("tabla");
-firebase.firestore().collection("posts").onSnapshot((querySnapshot)=>{
-  const tabla = document.getElementById("tabla");
-  tabla.innerHTML='';
-  querySnapshot.forEach((doc)=>{
-    console.log(`${doc.id}=>${doc.data().first}`);
-    tabla.innerHTML += `
-    <tr>
- <th scope='col'>${doc.id}</th>
- <th scope='col'>${doc.data().task}</th>
- </tr>
-    
-    `})
-  })
-}
-
-//readpost
-  } //no borra init
-}; //no borrar object view1
+      //const tabla = document.getElementById("tabla");
+      firebase.firestore().collection("post").onSnapshot((querySnapshot)=>{
+        const tabla = document.getElementById("tabla");
+        tabla.innerHTML='';
+        querySnapshot.forEach((doc)=>{
+          console.log(`${doc.id}=>${doc.data().first}`);
+          tabla.innerHTML += `
+          <tr>
+       <th scope='col'>${doc.id}</th>
+       <th scope='col'>${doc.data().task}</th>
+       </tr>
+          
+          `})
+        })
+      }
+      
+      //readpost
+        } //no borra init
+      }; //no borrar object view1

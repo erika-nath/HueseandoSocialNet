@@ -30,14 +30,11 @@ const userModel = {
 
 
   getPost: (contentPost) => {
-    const promisePost = firebase.firestore().collection("posts").add(contentPost);
+    const promisePost = firebase.firestore().collection("post").add(contentPost);
     return promisePost;
  },
 
- readPost:(contentPost)=>{
-   const db=firebase.firestore()
-   return promiseRead;
- }
+
 
 }   //fin de modelo  no borrar
 

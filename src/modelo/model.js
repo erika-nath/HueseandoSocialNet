@@ -34,6 +34,13 @@ const userModel = {
     return promisePost;
  },
 
+ delete:(id)=>{
+  const promiseDlt=firebase.firestore().collection("post").doc(id).delete();
+  return promiseDlt;
+ },
+
+ 
+
 
 
 }   //fin de modelo  no borrar

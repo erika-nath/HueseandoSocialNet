@@ -97,7 +97,6 @@ export const userInterface = {
     },//fin de post
 
     readPost:()=>{
-      //const tabla = document.getElementById("tabla");
       firebase.firestore().collection("post").onSnapshot((querySnapshot)=>{
         const tabla = document.getElementById("tabla");
         tabla.innerHTML='';
@@ -107,12 +106,40 @@ export const userInterface = {
           <tr>
        <th scope='col'>${doc.id}</th>
        <th scope='col'>${doc.data().task}</th>
-       </tr>
+       <th scope='col'>${doc.data().description}</th>
+       
           
-          `})
-        })
-      }
+          `
+        let btDelete= document.createElement("button");
+        btDelete.setAttribute("id","btnDelete");
+        btDelete.setAttribute("value","enviar");
+     tabla.appendChild(btDelete);
+
+     //borrar
+
+     let delt = document.getElementById("btnDelete");
+     delt.addEventListener("click",(e) => {
+       e.preventDefault();
+       console.log("funciona");
+       
+
+     });//si borrar
+
+
+        })//no borrar
+        })//no borrar
+      },//no borrar
+
       
-      //readpost
-        } //no borra init
-      }; //no borrar object view1
+
+
+              } //no borra initTODO ARRIBA
+      }; //no borrar object view1TODO ARRIBA
+
+/*
+      .then(function() {
+        console.log("Document successfully deleted!");
+      }).catch(function(error) {
+        console.error("Error removing document: ", error);
+      });*/
+

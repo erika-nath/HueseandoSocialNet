@@ -3,16 +3,10 @@ export default(user) =>{
 /*
  const viewPost = 
  
- 
- 
- 
  `
  <h1> pagina de post</h1>
  <div id:user>   </div>
-
-
  <input type="text" id="description" placeholder="insert name task" >
-
  <textarea placeholder="insert description" id="task" ></textarea>
  <input id="buttonSend" class="buttonSend" type="button" value="enviar">
  <table id="tabla" class="table">
@@ -27,21 +21,36 @@ export default(user) =>{
  
  `;
 
- 
-
   = document.createElement('div');
  */
-let contenido = document.createElement("div");
-let tabla= document.createElement("table");
-tabla.setAttribute("id" ,"tabla");
-console.log(tabla);
-
-let send= document.createElement("button");//boton no borrar
-contenido.appendChild(send);//boton no borrar
-contenido.appendChild(tabla);
 
 
-return contenido;
+
+let viewPublish = document.createElement("div");
+let description = document.createElement("input");
+description.setAttribute("type","text");
+description.setAttribute("id","description");
+description.setAttribute("placeholder","task");
+let muro= document.createElement("table");
+muro.setAttribute("id" ,"tabla");
+let comment=document.createElement("textarea");
+comment.setAttribute("id","task");
+comment.setAttribute("placeholder","insert description");
+let send= document.createElement("input");//boton no borrar
+send.setAttribute("id","buttonSend");
+send.setAttribute("type","button");
+send.setAttribute("value","enviar");
+
+viewPublish.appendChild(description);
+
+viewPublish.appendChild(comment);
+viewPublish.appendChild(send);//boton no borrar
+viewPublish.appendChild(muro);//tavla no borrar
+//////NO BORRAR NADA DE ARRIBA 
+
+
+
+return viewPublish;
 
 
 

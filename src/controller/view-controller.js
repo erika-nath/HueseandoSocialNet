@@ -39,6 +39,7 @@ break;
         });
         userInterface.init.readPost();
 
+
          
 
         break;
@@ -54,6 +55,8 @@ break;
     signup: () => userInterface.init.signup(),
     login: () => userInterface.init.login(),
     post: () => userInterface.init.post(),
+    readPost: () => userInterface.init.readPost(),
+
 
   },
 

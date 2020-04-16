@@ -99,34 +99,34 @@ export const userInterface = {
     readPost:()=>{
       firebase.firestore().collection("post").onSnapshot((querySnapshot)=>{
         const tabla = document.getElementById("tabla");
+        let rowsTamplate = document.createElement('tbody');
         tabla.innerHTML='';
         querySnapshot.forEach((doc)=>{
-          console.log(`${doc.id}=>${doc.data().first}`);
-          tabla.innerHTML += `
-          <tr>
-       <th scope='col'>${doc.id}</th>
-       <th scope='col'>${doc.data().task}</th>
-       <th scope='col'>${doc.data().description}</th>
-       
-          
-          `
-        let btDelete= document.createElement("button");
-        btDelete.setAttribute("id","btnDelete");
-        btDelete.setAttribute("value","enviar");
-     tabla.appendChild(btDelete);
+          ///console.log(`${doc.id}=>${doc.data().first}`);
+          const tr = document.createElement('tr');
 
-     //borrar
+          tr.innerHTML += `
+            <td scope='col'>${doc.id}</td>
+            <td scope='col'>${doc.data().task}</td>
+            <td scope='col'>${doc.data().description}</td>
+            <td><button data-id="${doc.id}">Eliminar</button></td>
+            <td><button id="btnEdit">Editar</button></td>`
 
-     let delt = document.getElementById("btnDelete");
-     delt.addEventListener("click",(e) => {
-       e.preventDefault();
-       console.log("funciona");
-       
-
-     });//si borrar
-
+     let delt = tr.querySelector("button[data-id='"+doc.id+"']");
+     console.log(delt);
+     delt.addEventListener('click', (e) => {
+       console.log(e.target.dataset.id)
+       model.userModel.delete(e.target.dataset.id)
+      .then(function() {
+        console.log("Document successfully deleted!");
+      }).catch(function(error) {
+        console.error("Error removing document: ", error);
+      });
+     } )
+      rowsTamplate.appendChild(tr);
 
         })//no borrar
+        tabla.appendChild(rowsTamplate)
         })//no borrar
       },//no borrar
 
@@ -137,9 +137,5 @@ export const userInterface = {
       }; //no borrar object view1TODO ARRIBA
 
 /*
-      .then(function() {
-        console.log("Document successfully deleted!");
-      }).catch(function(error) {
-        console.error("Error removing document: ", error);
-      });*/
+      */
 

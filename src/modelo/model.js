@@ -39,9 +39,6 @@ const userModel = {
   return promiseDlt;
  },
 
- 
-
-
 
 }   //fin de modelo  no borrar
 

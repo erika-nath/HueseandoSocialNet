@@ -12,28 +12,37 @@ firebase.initializeApp(firebaseConfig);
 
 const userModel = {
 
-    createEmailAndPassword: (userData) => {
-      const promiseAuth = firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password);
-      return promiseAuth;
-    },
-    
+  createEmailAndPassword: (userData) => {
+    const promiseAuth = firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password);
+    return promiseAuth;
+  },
 
- loginUser:(loginData)=>{
+
+  loginUser: (loginData) => {
     const promiseLogin = firebase.auth().signInWithEmailAndPassword(loginData.emailLogin, loginData.passwordLogin);
     return promiseLogin;
-    
+
   },
 
 
   getPost: (contentPost) => {
     const promisePost = firebase.firestore().collection("post").add(contentPost);
     return promisePost;
- },
+  },
 
- delete:(id)=>{
-  const promiseDlt=firebase.firestore().collection("post").doc(id).delete();
-  return promiseDlt;
- },
+  delete: (id) => {
+    const promiseDlt = firebase.firestore().collection("post").doc(id).delete();
+    return promiseDlt;
+  },
+
+  edit: (id) => {
+    const promiseEdit = firebase.firestore().collection("post").doc(id);
+    return promiseEdit.update({
+      description: document.getElementById('description').value,
+      task: document.getElementById('task').value,
+    })
+  }
+
 
 }   //fin de modelo  no borrar
 
@@ -43,5 +52,4 @@ export default {
   userModel: userModel,
 
 }
-          
-      
+

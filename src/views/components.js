@@ -82,15 +82,14 @@ export const userInterface = {
 
     readPost: () => {
       firebase.firestore().collection("post").onSnapshot((querySnapshot) => {
-      console.log(querySnapshot.size);
-      
+        console.log(querySnapshot.size);
+
         const tbodyPost = document.getElementById("tbodyPost");
         //let rowsTamplate = document.createElement('tbody');
-
-        tbodyPost.innerHTML=" ";
+        tbodyPost.innerHTML = " ";
         querySnapshot.forEach((doc) => {
           console.log(doc.data());
-          
+
           const tr = document.createElement('tr');
           tr.innerHTML += `
             <td scope='col'>${doc.id}</td>
@@ -102,15 +101,9 @@ export const userInterface = {
             let delt = document.createElement("button");//boton no borrar
             delt.setAttribute("id", "btnEliminar");
             delt.setAttribute("type", "button");
-            delt.innerText="eliminar";
-            
+            delt.innerText = "eliminar";
             tr.appendChild(delt);
 
-
-            //let delt = tr.querySelector("button[data-id='"+doc.id+"']");
-            //let delt = tr.querySelector("btnEliminar");
-
-            console.log(delt);
             delt.addEventListener('click', (e) => {
               model.userModel.delete(doc.id)
                 .then(function () {
@@ -119,12 +112,41 @@ export const userInterface = {
                   console.error("Error removing document: ", error);
                 });
             })
-            //rowsTamplate.appendChild(tr);
-          }
+            //editar
+            let edit = document.createElement("button");
+            edit.setAttribute("id", "btnEdit");
+            edit.setAttribute("type", "button");
+            edit.innerHTML = "editar";
+            tr.appendChild(edit)
+
+            edit.addEventListener('click', (e) => {
+              console.log("si funciona");
+              
+              document.getElementById('description').value = doc.data().description
+              document.getElementById('task').value = doc.data().task
+
+              return 
+              model.userModel.edit(doc.id)
+
+              //que no guarde un nuevo post que edite y darle la funcion con una condicion a enviar
+              //para que edite llamar otra vez a el boton
+                .then(function () {
+                console.log("Document successfully updated!");
+                const tr = document.createElement('tr');
+                tr.innerHTML += `
+            <td scope='col'>${doc.id}</td>
+            <td scope='col'>${doc.data().task}</td>
+            <td scope='col'>${doc.data().description}</td>
+            `
+              }).catch(function (error) {
+                console.error("Error updating document: ", error);
+              });
+          })
+      }
           tbodyPost.appendChild(tr);
-          //tabla.appendChild(rowsTamplate)
-        })//no borrar
-      });//no borra
+      //tabla.appendChild(rowsTamplate)
+    })//no borrar
+  });//no borra
     }//no borra initTODO ARRIBA
   } //no borrar object view1TODO ARRIBA
 };

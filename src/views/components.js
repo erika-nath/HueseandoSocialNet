@@ -3,8 +3,6 @@ import login from './login.js';
 import post from './post.js';
 import model from '../modelo/model.js';
 
-
-//vistas
 export const components = {
   signUp: signUp,
   login: login,
@@ -13,7 +11,7 @@ export const components = {
 export const userInterface = {
   init: {
     signup: () => {
-      const btnSignUp = document.getElementById('buttonSignup'); //signUP
+      const btnSignUp = document.getElementById('buttonSignup');
 
       btnSignUp.addEventListener('click', (e) => {
         e.preventDefault();
@@ -25,7 +23,6 @@ export const userInterface = {
         }
         console.log(userData);
         if (userData.email !== '' && userData.password !== '' && userData.password.length >= 6) {
-          // view1.detecthash("/login");
           model.userModel.createEmailAndPassword(userData)
             .then((data) => {
               console.log(data);
@@ -38,11 +35,10 @@ export const userInterface = {
         } else {
           alert("Debes de llenar los campos")
         }
-      }); //funcion de evento
-    }, //fin sigup
+      });
+    },
 
     login: () => {
-
       const btnLogin = document.getElementById('buttonLogin');
       btnLogin.addEventListener('click', (e) => {
         e.preventDefault();
@@ -50,8 +46,6 @@ export const userInterface = {
           emailLogin: document.getElementById('email').value,
           passwordLogin: document.getElementById('password').value
         }
-
-////no borrar
         model.userModel.loginUser(loginData)
           .then((data) => {
             window.location.hash = '#/post';
@@ -59,11 +53,8 @@ export const userInterface = {
           .catch((err) => {
             alert('There was an error')
           });
-
       });
-  
-    }, //fin metodo login NO BORRAR
-
+    },
 
     post: () => {
       const btnSend = document.getElementById('buttonSend');
@@ -73,69 +64,70 @@ export const userInterface = {
         let contentPost = {
           description: document.getElementById('description').value,
           task: document.getElementById('task').value,
-          
+          userId: firebase.auth().currentUser.uid
         }
-        
 
         model.userModel.getPost(contentPost)
 
           .then(function (docRef) {
-           console.log("Document written with ID: ", docRef.id);
-           console.log("Document written with ID: ",currentUser.uid);
-          // console.log("Document written with ID: ",docRef.uid);
-
-           document.getElementById('description').value = '';
+            console.log("Document written with ID: ", docRef.id);
+            document.getElementById('description').value = '';
             document.getElementById('task').value = '';
-      
           })
           .catch(function (error) {
             console.error("Error adding document: ", error);
           });
+      });
+    },
 
-      });//fin de send
+    readPost: () => {
+      firebase.firestore().collection("post").onSnapshot((querySnapshot) => {
+      console.log(querySnapshot.size);
+      
+        const tbodyPost = document.getElementById("tbodyPost");
+        //let rowsTamplate = document.createElement('tbody');
 
-    },//fin de post
-
-    readPost:()=>{
-      firebase.firestore().collection("post").onSnapshot((querySnapshot)=>{
-        const tabla = document.getElementById("tabla");
-        let rowsTamplate = document.createElement('tbody');
-        tabla.innerHTML='';
-        querySnapshot.forEach((doc)=>{
-          ///console.log(`${doc.id}=>${doc.data().first}`);
+        tbodyPost.innerHTML=" ";
+        querySnapshot.forEach((doc) => {
+          console.log(doc.data());
+          
           const tr = document.createElement('tr');
-
           tr.innerHTML += `
             <td scope='col'>${doc.id}</td>
             <td scope='col'>${doc.data().task}</td>
             <td scope='col'>${doc.data().description}</td>
-            <td><button data-id="${doc.id}">Eliminar</button></td>
-            <td><button id="btnEdit">Editar</button></td>`
+            
+          `
+          if (firebase.auth().currentUser.uid === doc.data().userId) {
+            let delt = document.createElement("button");//boton no borrar
+            delt.setAttribute("id", "btnEliminar");
+            delt.setAttribute("type", "button");
+            delt.innerText="eliminar";
+            
+            tr.appendChild(delt);
 
-     let delt = tr.querySelector("button[data-id='"+doc.id+"']");
-     console.log(delt);
-     delt.addEventListener('click', (e) => {
-       console.log(e.target.dataset.id)
-       model.userModel.delete(e.target.dataset.id)
-      .then(function() {
-        console.log("Document successfully deleted!");
-      }).catch(function(error) {
-        console.error("Error removing document: ", error);
-      });
-     } )
-      rowsTamplate.appendChild(tr);
 
+            //let delt = tr.querySelector("button[data-id='"+doc.id+"']");
+            //let delt = tr.querySelector("btnEliminar");
+
+            console.log(delt);
+            delt.addEventListener('click', (e) => {
+              model.userModel.delete(doc.id)
+                .then(function () {
+                  console.log("Document successfully deleted!");
+                }).catch(function (error) {
+                  console.error("Error removing document: ", error);
+                });
+            })
+            //rowsTamplate.appendChild(tr);
+          }
+          tbodyPost.appendChild(tr);
+          //tabla.appendChild(rowsTamplate)
         })//no borrar
-        tabla.appendChild(rowsTamplate)
-        })//no borrar
-      },//no borrar
+      });//no borra
+    }//no borra initTODO ARRIBA
+  } //no borrar object view1TODO ARRIBA
+};
 
-      
 
-
-              } //no borra initTODO ARRIBA
-      }; //no borrar object view1TODO ARRIBA
-
-/*
-      */
 

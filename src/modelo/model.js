@@ -10,10 +10,6 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-
-//contentPost
-
-
 const userModel = {
 
     createEmailAndPassword: (userData) => {
@@ -38,7 +34,6 @@ const userModel = {
   const promiseDlt=firebase.firestore().collection("post").doc(id).delete();
   return promiseDlt;
  },
-
 
 }   //fin de modelo  no borrar
 

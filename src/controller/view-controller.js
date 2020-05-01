@@ -11,18 +11,15 @@ export const viewController = {
       case '':
         container.appendChild(components.login());
         userInterface.init.login();
-break;
+        break;
       case '#/sign-up':
         container.appendChild(components.signUp())
         userInterface.init.signup();
         break;
-
       case '#/login':
         container.appendChild(components.login())
         userInterface.init.login();
-
         break;
-
       case '#/post':
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {

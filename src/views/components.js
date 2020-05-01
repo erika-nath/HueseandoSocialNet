@@ -59,7 +59,9 @@ export const userInterface = {
     post: () => {
       const btnSend = document.getElementById('buttonSend');
       btnSend.addEventListener('click', (e) => {
+        
         e.preventDefault();
+        console.log(e.target);
         //objeto con contenido post
         let contentPost = {
           description: document.getElementById('description').value,
@@ -67,8 +69,27 @@ export const userInterface = {
           userId: firebase.auth().currentUser.uid
         }
 
-        model.userModel.getPost(contentPost)
-
+        if ( e.target.value === "Guardar" ) {
+          const id = e.target.dataset.id;
+          model.userModel.edit(id)
+          .then(function () {
+            console.log("Document successfully updated!");
+            const tr = document.createElement('tr');
+            tr.innerHTML += `
+              <td scope='col'>${id}</td>
+              <td scope='col'>${contentPost.task}</td>
+              <td scope='col'>${contentPost.description}</td>
+              `
+            document.getElementById('description').value = '';
+            document.getElementById('task').value = '';
+            btnSend.value = 'enviar';
+            btnSend.removeAttribute('data-id');
+            
+          }).catch(function (error) {
+              console.error("Error updating document: ", error);
+          });
+        } else {
+          model.userModel.getPost(contentPost)
           .then(function (docRef) {
             console.log("Document written with ID: ", docRef.id);
             document.getElementById('description').value = '';
@@ -77,6 +98,8 @@ export const userInterface = {
           .catch(function (error) {
             console.error("Error adding document: ", error);
           });
+        }
+
       });
     },
 
@@ -85,7 +108,6 @@ export const userInterface = {
         console.log(querySnapshot.size);
 
         const tbodyPost = document.getElementById("tbodyPost");
-        //let rowsTamplate = document.createElement('tbody');
         tbodyPost.innerHTML = " ";
         querySnapshot.forEach((doc) => {
           console.log(doc.data());
@@ -95,7 +117,6 @@ export const userInterface = {
             <td scope='col'>${doc.id}</td>
             <td scope='col'>${doc.data().task}</td>
             <td scope='col'>${doc.data().description}</td>
-            
           `
           if (firebase.auth().currentUser.uid === doc.data().userId) {
             let delt = document.createElement("button");//boton no borrar
@@ -120,27 +141,22 @@ export const userInterface = {
             tr.appendChild(edit)
 
             edit.addEventListener('click', (e) => {
-              console.log("si funciona");
-              
               document.getElementById('description').value = doc.data().description
               document.getElementById('task').value = doc.data().task
+              let buttonSend= document.getElementById("buttonSend");
+              console.log(buttonSend)
+              buttonSend.value = "Guardar";
+              buttonSend.setAttribute("data-id",doc.id);
+              
 
-              return 
-              model.userModel.edit(doc.id)
 
-              //que no guarde un nuevo post que edite y darle la funcion con una condicion a enviar
-              //para que edite llamar otra vez a el boton
-                .then(function () {
-                console.log("Document successfully updated!");
-                const tr = document.createElement('tr');
-                tr.innerHTML += `
-            <td scope='col'>${doc.id}</td>
-            <td scope='col'>${doc.data().task}</td>
-            <td scope='col'>${doc.data().description}</td>
-            `
-              }).catch(function (error) {
-                console.error("Error updating document: ", error);
-              });
+            //   <button>innerHTML</button>
+            //  <input value/>
+              // button.addEventListener('click',(e)=>{
+              
+
+              // })
+              
           })
       }
           tbodyPost.appendChild(tr);
